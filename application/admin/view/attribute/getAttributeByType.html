@@ -1,0 +1,71 @@
+<?php
+foreach ($data as $v) {
+	if ($v["attr_type"]==1) {
+		if ($v["attr_input_type"]==0) {
+		echo "<div class='row cl'>
+<label class='form-label col-xs-4 col-sm-2'>
+	<a>[+]</a>".
+	$v['attr_name']."：</label>
+<div class='formControls col-xs-8 col-sm-9'>
+	<input type='text' id='goods-title' name='attr[".$v['id']."][]' placeholder='控制在25个字、50个字节以内' value='' class='input-text'>
+</div>
+</div>";
+}else{
+
+//手工录入
+echo "<div class='row cl'>
+<label class='form-label col-xs-4 col-sm-2'><a href='javascript:;' onclick='cloneThis(this)'>[+]</a>".$v['attr_name']."：</label>
+<div class='formControls col-xs-8 col-sm-10'> <span class='select-box' style='width:150px;'>
+		<select class='select' name='attr[".$v['id']."][]' size='1'>
+			<option value='0'>选择类型</option>";
+			$attr_value=explode(",",$v['attr_value']);
+			foreach($attr_value as $vv){
+			echo "<option value='".$vv."'>$vv</option>";
+			}
+		echo "</select>
+		</span> </div>
+</div>";
+
+
+		}
+	}else{
+if ($v["attr_input_type"]==0) {
+echo "<div class='row cl'>
+	<label class='form-label col-xs-4 col-sm-2'>".
+		$v['attr_name']."：</label>
+	<div class='formControls col-xs-8 col-sm-9'>
+		<input type='text' id='' name='attr[".$v['id']."][]' placeholder='控制在25个字、50个字节以内' value='' class='input-text'>
+	</div>
+</div>";
+}else{
+//手工录入
+echo "<div class='row cl'>
+	<label class='form-label col-xs-4 col-sm-2'>".$v['attr_name']."：</label>
+	<div class='formControls col-xs-8 col-sm-10'> <span class='select-box' style='width:150px;'>
+		<select class='select' name='attr[".$v['id']."][]' size='1'>
+			<option value='0'>选择类型</option>";
+			$attr_value=explode(",",$v['attr_value']);
+			foreach($attr_value as $vv){
+			echo "<option value='".$vv."'>$vv</option>";
+			}
+		echo "</select>
+		</span> </div>
+</div>";
+
+}
+	}
+}
+ ?>
+
+<script>
+	function cloneThis(o) {
+		var current_div=$(o).parent().parent();
+		if ($(o).html()=="[+]"){
+			var new_div=current_div.clone();
+			new_div.find("a").html("[-]");
+			current_div.after(new_div);
+		} else {
+			current_div.remove();
+		}
+	}
+</script>
